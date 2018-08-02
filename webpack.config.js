@@ -16,9 +16,7 @@ const options = {
 };
 
 module.exports = {
-  entry: {
-    app: PATHS.app
-  },
+  entry: path.join(PATHS.app,'main.js'),
   output: {
     path: PATHS.build,
     filename: 'bundle.[hash].js'
@@ -54,7 +52,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
-            presets: ['es2015']
+            presets: [['env', { modules: false }], 'stage-3'],
           }
         }]
       },

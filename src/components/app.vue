@@ -1,16 +1,19 @@
 <template>
-  <p>{{ greeting }} World!</p>
+  <Sequencer/>
 </template>
 
 <script>
+import Sequencer from './sequencer';
+
 export default {
-  name: 'app',
+  name: 'App',
+  components: { Sequencer },
   data() {
     return {
       greeting: 'Hello'
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

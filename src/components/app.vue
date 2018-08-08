@@ -1,13 +1,17 @@
 <template>
-  <Sequencer/>
+  <div>
+    <Scale/>
+    <Sequencer/>
+  </div>
 </template>
 
 <script>
 import Sequencer from './sequencer';
+import Scale from './scale';
 
 export default {
   name: 'App',
-  components: { Sequencer },
+  components: { Scale, Sequencer },
   data() {
     return {
       greeting: 'Hello'

@@ -26,6 +26,9 @@ const getters = {
     scale = scale.concat(scale.map(note => note.interval('P8')));
     scale.push(scale[7].interval('P8'));
     return scale.map(note => note.scientific());
+  },
+  isNoteEnabled(state) {
+    return (beat, note) => state.notes[beat] === note;
   }
 };
 
@@ -57,7 +60,7 @@ const mutations = {
   },
   [SEQUENCER_MUTATIONS.EDIT_NOTE] (state, payload) {
     state.notes = [...state.notes];
-    state.notes[payload.index] = state.notes[payload.value];
+    state.notes[payload.index] = payload.value;
   },
 };
 

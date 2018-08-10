@@ -2,16 +2,18 @@
   <div>
     <Scale/>
     <Sequencer/>
+    <PlayStop/>
   </div>
 </template>
 
 <script>
 import Sequencer from './sequencer';
 import Scale from './scale';
+import PlayStop from './play-stop';
 
 export default {
   name: 'App',
-  components: { Scale, Sequencer },
+  components: { Scale, Sequencer, PlayStop },
   data() {
     return {
       greeting: 'Hello'
@@ -22,7 +24,7 @@ export default {
 
 <style scoped>
 p {
-  font-size: 2em;
+  font-size: 2rem;
   text-align: center;
 }
 </style>

@@ -6,7 +6,8 @@
       <th>{{ scaleNotes[scaleNotes.length - rIndex] }}</th>
       <td
         v-for="col in signature"
-        :key="col">
+        :key="col"
+        :class="{ active : beat === col - 1 }">
         <Note
           :enabled="isNoteEnabled(col - 1, scaleNotes.length - rIndex)"
           :note="scaleNotes.length - rIndex"
@@ -30,7 +31,8 @@ export default {
     ]),
     ...mapState('sequencer', [
       'signature',
-      'notes'
+      'notes',
+      'beat'
     ])
   },
   methods: {
@@ -40,6 +42,12 @@ export default {
         value: enable ? note : -1
       });
     }
-  }
+  },
 };
 </script>
+
+<style scoped="true">
+td.active {
+  background: yellow;
+}
+</style>

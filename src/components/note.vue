@@ -1,6 +1,6 @@
 <template>
   <button
-    :class="{ enabled: enabled }"
+    :class="{ enabled: enabled, phased: phased }"
     @click="$emit('click-note', beat, note, !enabled)"/>
 </template>
 
@@ -8,6 +8,10 @@
 export default {
   props: {
     enabled: {
+      type: Boolean,
+      default: false
+    },
+    phased: {
       type: Boolean,
       default: false
     },
@@ -34,5 +38,11 @@ button {
 }
 button.enabled {
   background: blue;
+}
+button.phased {
+  background: red;
+}
+button.enabled.phased {
+  background: black;
 }
 </style>

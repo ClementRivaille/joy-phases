@@ -10,6 +10,7 @@
         :class="{ active : beat === col - 1 }">
         <Note
           :enabled="isNoteEnabled(col - 1, scaleNotes.length - rIndex)"
+          :phased="phasingActive && isNoteEnabled((col - 1 + sequence) % signature, scaleNotes.length - rIndex)"
           :note="scaleNotes.length - rIndex"
           :beat="col - 1"
           @click-note="onClickNote"/>
@@ -33,7 +34,13 @@ export default {
       'signature',
       'notes',
       'beat'
-    ])
+    ]),
+    ...mapState('phasing', [
+      'sequence'
+    ]),
+    phasingActive() {
+      return this.$store.state.phasing.active;
+    }
   },
   methods: {
     onClickNote(beat, note, enable) {

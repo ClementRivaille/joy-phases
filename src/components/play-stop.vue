@@ -16,9 +16,7 @@ export default {
   },
   methods: {
     onClick() {
-      console.log(this.playing);
-      console.log(this.$store.state);
-      this.$store.dispatch(`sequencer/${this.playing ? 'stop' : 'play'}`);
+      this.$store.dispatch(`phasing/${this.playing ? 'stop' : 'start'}`);
     }
   }
 }

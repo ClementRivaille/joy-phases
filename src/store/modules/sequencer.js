@@ -108,11 +108,23 @@ const actions = {
   moveBeat({commit}) {
     commit(SEQUENCER_MUTATIONS.MOVE_BEAT);
   },
-  play({commit, state, getters, dispatch}) {
+  play({commit, state, getters, dispatch, rootState}) {
     commit(SEQUENCER_MUTATIONS.SET_PLAYING, true);
+    let starting = true;
     startLoop(() => {
       dispatch('moveBeat');
-      playNote(getters.scaleNotes[state.notes[state.beat]]);
+      if (state.beat === 0 && !starting) {
+        dispatch('phasing/changeMeasure', null, { root: true });
+      }
+      starting = false;
+
+      if (state.playing) {
+        if (state.notes[state.beat] !== -1 )
+          playNote(getters.scaleNotes[state.notes[state.beat]]);
+        if (rootState.phasing.active && state.notes[(state.beat + rootState.phasing.sequence) % state.signature]!== -1) {
+          playNote(getters.scaleNotes[state.notes[(state.beat + rootState.phasing.sequence) % state.signature]], true);
+        }
+      }
     })
   },
   stop({commit}) {

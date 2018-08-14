@@ -17,6 +17,7 @@ const state = {
   bpm: 120,
   notes: initializeNotes(16),
   beat: -1,
+  instrument: 'synth',
   playing: false
 };
 
@@ -44,6 +45,7 @@ export const SEQUENCER_MUTATIONS = {
   MOVE_BEAT: 'MOVE_BEAT',
   INIT_BEAT: 'INIT_BEAT',
   SET_PLAYING: 'SET_PLAYING',
+  SET_INSTRUMENT: 'SET_INSTRUMENT',
 };
 
 const mutations = {
@@ -74,6 +76,9 @@ const mutations = {
   },
   [SEQUENCER_MUTATIONS.SET_PLAYING] (state, value) {
     state.playing = value;
+  },
+  [SEQUENCER_MUTATIONS.SET_INSTRUMENT] (state, instrument) {
+    state.instrument = instrument;
   }
 };
 
@@ -96,6 +101,9 @@ const actions = {
 
   setBpm({commit}, bpm) {
     commit(SEQUENCER_MUTATIONS.SET_BPM, bpm);
+  },
+  setInstrument({commit}, instrument) {
+    commit(SEQUENCER_MUTATIONS.SET_INSTRUMENT, instrument)
   },
 
   editNote({commit, state}, payload) {
@@ -120,9 +128,9 @@ const actions = {
 
       if (state.playing) {
         if (state.notes[state.beat] !== -1 )
-          playNote(getters.scaleNotes[state.notes[state.beat]]);
+          playNote(getters.scaleNotes[state.notes[state.beat]], state.instrument);
         if (rootState.phasing.active && state.notes[(state.beat + rootState.phasing.sequence) % state.signature]!== -1) {
-          playNote(getters.scaleNotes[state.notes[(state.beat + rootState.phasing.sequence) % state.signature]], true);
+          playNote(getters.scaleNotes[state.notes[(state.beat + rootState.phasing.sequence) % state.signature]], state.instrument, true);
         }
       }
     })

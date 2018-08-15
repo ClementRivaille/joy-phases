@@ -1,8 +1,11 @@
 <template>
   <div>
-    <Scale/>
-    <Sequencer/>
-    <PlayStop/>
+    <span v-if="!loaded">Loading…</span>
+    <div v-if="loaded">
+      <Scale/>
+      <Sequencer/>
+      <PlayStop/>
+    </div>
   </div>
 </template>
 
@@ -11,13 +14,21 @@ import Sequencer from './sequencer';
 import Scale from './scale';
 import PlayStop from './play-stop';
 
+import { loadInstruments } from '../utils/instrument';
+
 export default {
   name: 'App',
   components: { Scale, Sequencer, PlayStop },
   data() {
     return {
-      greeting: 'Hello'
+      greeting: 'Hello',
+      loaded: false,
     }
+  },
+  created() {
+    loadInstruments().then(() => {
+      this.loaded = true;
+    });
   },
 };
 </script>

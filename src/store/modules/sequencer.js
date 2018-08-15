@@ -17,7 +17,7 @@ const state = {
   bpm: 120,
   notes: initializeNotes(16),
   beat: -1,
-  instrument: 'synth',
+  instrument: 'piano',
   playing: false
 };
 

@@ -1,5 +1,6 @@
 import Tone from 'tone';
 
+// Sequence
 Tone.Transport.bpm.value = 120;
 export function setBpm(value) {
   Tone.Transport.bpm.value = value;
@@ -8,6 +9,7 @@ export function setBpm(value) {
 let loop;
 
 export function startLoop(callback) {
+  // Call callback every beat
   loop = new Tone.Sequence(callback, [0], "16n");
   Tone.Transport.start();
   loop.start();
@@ -19,22 +21,7 @@ export function stopLoop() {
 }
 
 // Instruments
-
-function createSynth() {
-
-  return new Tone.Synth({
-    oscillator : {
-      type : "square",
-    },
-    envelope : {
-      attack: 0.01,
-      release: '16n',
-      volume: 0.01
-    },
-  }).connect(new Tone.Filter(15, 'lowpass', -12)).toMaster();
-}
-
-function createPiano() {
+function createPiano(callback) {
   return new Tone.Sampler({
     A4: 'A4v3.wav',
     A5: 'A5v3.wav',
@@ -52,12 +39,12 @@ function createPiano() {
   {
     release: 1,
     baseUrl: './assets/piano/',
-    // onload: resolve,
-    volume: 0.5
+    onload: callback,
+    volume: 0
   }).toMaster();
 }
 
-function createXylophone() {
+function createXylophone(callback) {
   return new Tone.Sampler({
     A4: 'A4.wav',
     A5: 'A5.wav',
@@ -71,26 +58,39 @@ function createXylophone() {
   {
     release: 1,
     baseUrl: './assets/xylophone/',
-    // onload: resolve,
-    volume: -10
+    onload: callback,
+    volume: -15
   }).toMaster();
 }
 
-const instruments = {
-  piano: {
-    default: createPiano(),
-    phase: createPiano(),
-  },
-  xylophone: {
-    default: createXylophone(),
-    phase: createXylophone(),
-  },
-  synth: {
-    default: createSynth(),
-    phase: createSynth(),
-  }
-};
+const instruments = {};
 
+// Load an instrument
+function makeInstrument(name, builder) {
+  const promises = [];
+  
+  instruments[name] = {};
+  // Instrument need two instances
+  promises.push(new Promise((resolve) => {
+    instruments[name].default = builder(resolve);
+  }));
+  promises.push(new Promise((resolve) => {
+    instruments[name].phase = builder(resolve);
+  }));
+  return Promise.all(promises);
+}
+
+/** Load all isntruments */
+export function loadInstruments() {
+  const promises = [];
+
+  promises.push(makeInstrument('piano', createPiano));
+  promises.push(makeInstrument('xylophone', createXylophone));
+
+  return Promise.all(promises);
+}
+
+/** Play a note on an instrument */
 export function playNote(note, instrument, phase) {
   instruments[instrument][phase ? 'phase' : 'default'].triggerAttackRelease(note, "16n");
 }

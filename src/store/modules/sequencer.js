@@ -17,7 +17,7 @@ const state = {
   bpm: 120,
   notes: initializeNotes(16),
   beat: -1,
-  instrument: 'piano',
+  instrument: 'xylophone',
   playing: false
 };
 
@@ -84,11 +84,16 @@ const mutations = {
 
 // actions
 const actions = {
-  setSignature({commit}, signature) {
+  setSignature({commit, dispatch, state, rootState}, signature) {
     commit(SEQUENCER_MUTATIONS.SET_SIGNATURE, signature);
     commit(SEQUENCER_MUTATIONS.CLEAR);
-    commit(SEQUENCER_MUTATIONS.SET_PLAYING, false);
-    commit(SEQUENCER_MUTATIONS.INIT_BEAT);
+    if (state.playing) {
+      if (rootState.phasing.active) {
+        dispatch('phasing/stop', null, {root: true});
+      } else {
+        dispatch('stop');
+      }
+    }
   },
 
   setTonic({commit}, tonic) {

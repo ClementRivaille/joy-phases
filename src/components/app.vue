@@ -2,8 +2,10 @@
   <div>
     <span v-if="!loaded">Loading…</span>
     <div v-if="loaded">
+      <Signature/>
       <Scale/>
       <Sequencer/>
+      <Instrument/>
       <PlayStop/>
     </div>
   </div>
@@ -13,12 +15,14 @@
 import Sequencer from './sequencer';
 import Scale from './scale';
 import PlayStop from './play-stop';
+import Signature from './signature';
+import Instrument from './instrument';
 
 import { loadInstruments } from '../utils/instrument';
 
 export default {
   name: 'App',
-  components: { Scale, Sequencer, PlayStop },
+  components: { Scale, Sequencer, PlayStop, Signature, Instrument },
   data() {
     return {
       greeting: 'Hello',

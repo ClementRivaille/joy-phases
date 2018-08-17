@@ -1,12 +1,28 @@
 import Tone from 'tone';
 
 // Sequence
-Tone.Transport.bpm.value = 120;
-export function setBpm(value) {
-  Tone.Transport.bpm.value = value;
-}
-
 let loop;
+Tone.Transport.bpm.value = 120;
+
+export function setBpm(value, playing) {
+  // Pause loop if currently playing
+  if (playing) {
+    loop.stop();
+  }
+
+  Tone.Transport.bpm.value = value;
+
+  // Restart loop
+  if (playing) {
+    loop.start();
+    // Loop can sometime freeze, this is to prevent that
+    setTimeout(() => {
+      if (loop.state !== 'started') {
+        loop.start();
+      }
+    }, (1 / (value / 60)) * 1000);
+  }
+}
 
 export function startLoop(callback) {
   // Call callback every beat
@@ -17,6 +33,8 @@ export function startLoop(callback) {
 
 export function stopLoop() {
   loop.stop();
+  loop.removeAll();
+  loop.dispose();
   Tone.Transport.stop();
 }
 

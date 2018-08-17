@@ -3,6 +3,7 @@
     <span v-if="!loaded">Loading…</span>
     <div v-if="loaded">
       <Signature/>
+      <Bpm/>
       <Scale/>
       <Sequencer/>
       <Instrument/>
@@ -17,12 +18,13 @@ import Scale from './scale';
 import PlayStop from './play-stop';
 import Signature from './signature';
 import Instrument from './instrument';
+import Bpm from './bpm';
 
 import { loadInstruments } from '../utils/instrument';
 
 export default {
   name: 'App',
-  components: { Scale, Sequencer, PlayStop, Signature, Instrument },
+  components: { Scale, Sequencer, PlayStop, Signature, Instrument, Bpm },
   data() {
     return {
       greeting: 'Hello',

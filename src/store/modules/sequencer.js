@@ -1,5 +1,5 @@
 import teoria from 'teoria';
-import { startLoop, stopLoop, playNote } from '../../utils/instrument';
+import { startLoop, stopLoop, playNote, setBpm } from '../../utils/instrument';
 
 function initializeNotes(size) {
   const notes = [];
@@ -104,7 +104,8 @@ const actions = {
     commit(SEQUENCER_MUTATIONS.SET_SCALE, scale);
   },
 
-  setBpm({commit}, bpm) {
+  setBpm({commit, state}, bpm) {
+    setBpm(bpm, state.playing);
     commit(SEQUENCER_MUTATIONS.SET_BPM, bpm);
   },
   setInstrument({commit}, instrument) {

@@ -34,6 +34,7 @@ export default {
   created() {
     loadInstruments().then(() => {
       this.loaded = true;
+      this.$store.dispatch('phasing/initSheet', this.$store.state.sequencer.signature);
     });
   },
 };

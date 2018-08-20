@@ -1,7 +1,8 @@
 const state = {
   active: false,
   sequence: 0,
-  next: 4
+  next: 4,
+  sheet: [],
 }
 
 const PHASING_MUTATIONS = {
@@ -10,6 +11,8 @@ const PHASING_MUTATIONS = {
   MOVE_SEQUENCE: 'MOVE_SEQUENCE',
   RESET_SEQUENCE: 'RESET_SEQUENCE',
   SET_ACTIVE: 'SET_ACTIVE',
+  SET_SHEET: 'SET_SHEET',
+  EDIT_SEQUENCE: 'EDIT_SEQUENCE',
 };
 
 const mutations = {
@@ -28,12 +31,24 @@ const mutations = {
   [PHASING_MUTATIONS.SET_ACTIVE] (state, value) {
     state.active = value;
   },
+  [PHASING_MUTATIONS.SET_SHEET] (state, sheet) {
+    state.sheet = sheet;
+  },
+  [PHASING_MUTATIONS.EDIT_SEQUENCE] (state, payload) {
+    state.sheet[payload.index] = {
+      tonic: payload.tonic,
+      scale: payload.scale
+    }
+  }
 }
 
 const actions = {
   start({commit, dispatch}) {
     commit(PHASING_MUTATIONS.SET_ACTIVE, true);
     dispatch('sequencer/play', null, { root: true });
+
+    dispatch('sequencer/setTonic', state.sheet[0].tonic, {root: true});
+    dispatch('sequencer/setScale', state.sheet[0].scale, {root: true});
   },
 
   stop({commit, dispatch}) {
@@ -41,6 +56,9 @@ const actions = {
     commit(PHASING_MUTATIONS.RESET_SEQUENCE);
     commit(PHASING_MUTATIONS.RESET_NEXT);
     dispatch('sequencer/stop', null, { root: true });
+
+    dispatch('sequencer/setTonic', state.sheet[0].tonic, {root: true});
+    dispatch('sequencer/setScale', state.sheet[0].scale, {root: true});
   },
 
   changeMeasure({commit, state, rootState, dispatch}) {
@@ -51,11 +69,25 @@ const actions = {
       commit(PHASING_MUTATIONS.MOVE_SEQUENCE);
       commit(PHASING_MUTATIONS.RESET_NEXT);
 
+      dispatch('sequencer/setTonic', state.sheet[state.sequence].tonic, {root: true});
+      dispatch('sequencer/setScale', state.sheet[state.sequence].scale, {root: true});
+
       // End piece
       if (state.sequence > rootState.sequencer.signature) {
         dispatch('stop');
       }
     }
+  },
+
+  initSheet({commit, rootState}, signature) {
+    const sheet = [];
+    for (let i = 0 ; i < signature ; i++) {
+      sheet.push({
+        tonic: rootState.sequencer.tonic,
+        scale: rootState.sequencer.scale,
+      });
+    }
+    commit(PHASING_MUTATIONS.SET_SHEET, sheet);
   }
 }
 

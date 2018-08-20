@@ -94,6 +94,7 @@ const actions = {
         dispatch('stop');
       }
     }
+    dispatch('phasing/initSheet', signature, {root:true});
   },
 
   setTonic({commit}, tonic) {

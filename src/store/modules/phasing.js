@@ -69,26 +69,37 @@ const actions = {
       commit(PHASING_MUTATIONS.MOVE_SEQUENCE);
       commit(PHASING_MUTATIONS.RESET_NEXT);
 
-      dispatch('sequencer/setTonic', state.sheet[state.sequence].tonic, {root: true});
-      dispatch('sequencer/setScale', state.sheet[state.sequence].scale, {root: true});
-
       // End piece
       if (state.sequence > rootState.sequencer.signature) {
         dispatch('stop');
+      }
+      else {
+        dispatch('sequencer/setTonic', state.sheet[state.sequence].tonic, {root: true});
+        dispatch('sequencer/setScale', state.sheet[state.sequence].scale, {root: true});
       }
     }
   },
 
   initSheet({commit, rootState}, signature) {
     const sheet = [];
-    for (let i = 0 ; i < signature ; i++) {
+    for (let i = 0 ; i <= signature ; i++) {
       sheet.push({
         tonic: rootState.sequencer.tonic,
         scale: rootState.sequencer.scale,
       });
     }
     commit(PHASING_MUTATIONS.SET_SHEET, sheet);
-  }
+  },
+
+  editSequence({commit, state, dispatch}, payload) {
+    commit(PHASING_MUTATIONS.EDIT_SEQUENCE, payload);
+
+    // If we edit the active one, update sequencer
+    if (payload.index === state.sequence) {
+      dispatch('sequencer/setTonic', payload.tonic, {root: true});
+      dispatch('sequencer/setScale', payload.scale, {root: true});
+    }
+  },
 }
 
 export default {

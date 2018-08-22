@@ -4,9 +4,15 @@
     <div v-if="loaded">
       <Signature/>
       <Bpm/>
-      <Scale/>
+      <Scale
+        :tonic="tonic"
+        :mode="scale"
+        @set-tonic="setTonic"
+        @set-scale="setScale"/>
       <Sequencer/>
       <Instrument/>
+
+      <Sheet/>
       <PlayStop/>
     </div>
   </div>
@@ -19,17 +25,22 @@ import PlayStop from './play-stop';
 import Signature from './signature';
 import Instrument from './instrument';
 import Bpm from './bpm';
+import Sheet from './sheet';
 
 import { loadInstruments } from '../utils/instrument';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'App',
-  components: { Scale, Sequencer, PlayStop, Signature, Instrument, Bpm },
+  components: { Scale, Sequencer, PlayStop, Signature, Instrument, Bpm, Sheet },
   data() {
     return {
       greeting: 'Hello',
       loaded: false,
     }
+  },
+  computed: {
+    ...mapState('sequencer', ['tonic', 'scale']),
   },
   created() {
     loadInstruments().then(() => {
@@ -37,6 +48,9 @@ export default {
       this.$store.dispatch('phasing/initSheet', this.$store.state.sequencer.signature);
     });
   },
+  methods: {
+    ...mapActions('sequencer', ['setTonic', 'setScale']),
+  }
 };
 </script>
 

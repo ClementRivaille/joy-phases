@@ -31,9 +31,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
+  props: {
+    tonic: {
+      type: String,
+      default: 'C',
+    },
+    mode: {
+      type: String,
+      default: 'major'
+    },
+  },
   data() {
     return {
       notes: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
@@ -48,18 +56,12 @@ export default {
       ]
     };
   },
-  computed: {
-    ...mapState('sequencer', {
-      tonic: 'tonic',
-      mode: 'scale'
-    })
-  },
   methods: {
     setTonic(e) {
-      this.$store.dispatch('sequencer/setTonic', e.target.value);
+      this.$emit('set-tonic', e.target.value);
     },
     setScale(e) {
-      this.$store.dispatch('sequencer/setScale', e.target.value);
+      this.$emit('set-scale', e.target.value);
     }
   }
 }

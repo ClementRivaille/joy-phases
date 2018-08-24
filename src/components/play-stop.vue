@@ -21,3 +21,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  button {
+    font-size: 1.5rem;
+    border: none;
+    background: #5ddd5a;
+    padding: 0.8rem;
+    border-radius: 0.8rem;
+    cursor: pointer;
+  }
+</style>

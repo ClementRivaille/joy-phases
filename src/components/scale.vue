@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="scale">
     <label>
-      Tonic
+      <span class="field-label">Tonic</span>
       <select
         :value="tonic"
         name="tonic"
@@ -15,7 +15,7 @@
     </label>
 
     <label>
-      Mode
+      <span class="field-label">Mode</span>
       <select
         :value="mode"
         name="mode"
@@ -66,3 +66,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  
+</style>

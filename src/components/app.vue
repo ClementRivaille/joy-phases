@@ -1,19 +1,39 @@
 <template>
   <div>
-    <span v-if="!loaded">Loading…</span>
-    <div v-if="loaded">
-      <Signature/>
-      <Bpm/>
-      <Scale
-        :tonic="tonic"
-        :mode="scale"
-        @set-tonic="setTonic"
-        @set-scale="setScale"/>
-      <Sequencer/>
-      <Instrument/>
+    <div
+      v-if="!loaded"
+      id="loading">
+      Loading…</div>
+    <div
+      v-if="loaded"
+      id="main">
+      <h1>JOY PHASES</h1>
 
-      <Sheet/>
-      <PlayStop/>
+      <section id="rhythm">
+        <h2>Rhythm</h2>
+        <Signature/>
+        <Bpm/>
+      </section>
+
+      <section id="sequencer">
+        <h2>Melody</h2>
+        <Scale
+          :tonic="tonic"
+          :mode="scale"
+          @set-tonic="setTonic"
+          @set-scale="setScale"/>
+        <Sequencer/>
+        <Instrument/>
+      </section>
+
+      <section id="sheet">
+        <h2>Sections</h2>
+        <Sheet/>
+      </section>
+
+      <div id="controls">
+        <PlayStop/>
+      </div>
     </div>
   </div>
 </template>
@@ -55,8 +75,46 @@ export default {
 </script>
 
 <style scoped>
-p {
-  font-size: 2rem;
+h1 {
   text-align: center;
+  color: white;
+  font-size: 4rem;
+  font-family: serif;
+  margin-top: 0.1rem;
+}
+
+#main {
+  margin: 0 5%;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: red;
+  margin-bottom: 2rem;
+
+  border-radius: 1rem;
+  background-color: #8a791a66;
+
+  padding: 1rem;
+}
+
+section h2 {
+  width: 100%;
+  text-align: left;
+  color: lightgrey;
+  font-weight: normal;
+  margin-top: 0rem;
+}
+
+section#rhythm {
+  align-items: stretch;
+}
+
+#controls {
+  display: flex;
+  justify-content: center;
 }
 </style>

@@ -27,22 +27,24 @@ export default {
 }
 </script>
 
-<style scoped="true">
+<style scoped>
 button {
-  border: solid 1px grey;
+  border: solid 0.13rem white;
+  opacity: 0.4;
   background: none;
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.3rem;
   display: block;
   cursor: pointer;
 }
 button.enabled {
-  background: blue;
+  background: #6f100c;
 }
 button.phased {
-  background: red;
+  background: #20c1d4;
 }
 button.enabled.phased {
-  background: black;
+  background: #36309b;
 }
 </style>

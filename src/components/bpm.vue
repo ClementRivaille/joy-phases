@@ -1,12 +1,14 @@
 <template>
   <div>
+    <label for="bpm">BPM</label>
     <input
+      id="bpm"
       :value="bpm"
       type="range"
       min="80"
       max="200"
       @input="setBpm">
-    {{ bpm }}
+    <span class="value">{{ bpm }}</span>
   </div>
 </template>
 
@@ -24,3 +26,16 @@ export default {
   }
 }
 </script>
+
+<style scoped="true">
+  * {
+    display: block;
+  }
+  input {
+    width: 100%;
+  }
+  .value, label {
+    width: 100%;
+    text-align: center;
+  }
+</style>

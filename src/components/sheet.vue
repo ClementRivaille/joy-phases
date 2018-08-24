@@ -4,8 +4,9 @@
       <li
         v-for="(sequence, index) in sheet"
         :key="index"
-        :class="{active: index === currentSequence}">
-        <h3>Sequence {{ index }}</h3>
+        :class="{active: index === currentSequence}"
+        class="sequence">
+        <h3>{{ index }}</h3>
         <Scale
           :tonic="sequence.tonic"
           :mode="sequence.scale"
@@ -48,6 +49,11 @@ export default {
 </script>
 
 <style scoped="true">
+h3 {
+  margin: 0.2rem 0;
+  font-size: 1rem;
+  text-align: center;
+}
 ul {
   list-style: none;
   display: flex;
@@ -55,12 +61,16 @@ ul {
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
+  margin: 0;
+  padding: 0;
 }
 li {
-  border: solid 1px black;
   margin: 0.5rem;
+  padding: 0.3rem 1rem;
+  border-radius: 0.4rem;
+  background-color: #fff4;
 }
 li.active {
-  background-color: grey;
+  background-color: #0006;
 }
 </style>

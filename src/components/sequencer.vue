@@ -1,22 +1,24 @@
 <template>
-  <table>
-    <tr
-      v-for="rIndex in scaleNotes.length"
-      :key="rIndex">
-      <th>{{ scaleNotes[scaleNotes.length - rIndex] }}</th>
-      <td
-        v-for="col in signature"
-        :key="col"
-        :class="{ active : beat === col - 1 }">
-        <Note
-          :enabled="isNoteEnabled(col - 1, scaleNotes.length - rIndex)"
-          :phased="phasingActive && isNoteEnabled((col - 1 + sequence) % signature, scaleNotes.length - rIndex)"
-          :note="scaleNotes.length - rIndex"
-          :beat="col - 1"
-          @click-note="onClickNote"/>
-      </td>
-    </tr>
-  </table>
+  <div class="sequencer">
+    <table>
+      <tr
+        v-for="rIndex in scaleNotes.length"
+        :key="rIndex">
+        <th>{{ scaleNotes[scaleNotes.length - rIndex] }}</th>
+        <td
+          v-for="col in signature"
+          :key="col"
+          :class="{ active : beat === col - 1 }">
+          <Note
+            :enabled="isNoteEnabled(col - 1, scaleNotes.length - rIndex)"
+            :phased="phasingActive && isNoteEnabled((col - 1 + sequence) % signature, scaleNotes.length - rIndex)"
+            :note="scaleNotes.length - rIndex"
+            :beat="col - 1"
+            @click-note="onClickNote"/>
+        </td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -53,8 +55,27 @@ export default {
 };
 </script>
 
-<style scoped="true">
+<style scoped>
+.sequencer {
+  background-color: #fff3;
+  border-radius: 0.7rem;
+  padding: 2rem;
+}
+
+table {
+  border-collapse: collapse;
+}
+th {
+  font-weight: normal;
+  color: white;
+  opacity: 0.4;
+  padding: 0.2rem;
+  min-width: 3rem;
+}
+td {
+  padding: 0.1rem;
+}
 td.active {
-  background: yellow;
+  background: #fff4;
 }
 </style>

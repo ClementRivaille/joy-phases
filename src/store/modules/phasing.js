@@ -1,4 +1,4 @@
-const state = {
+const initState = {
   active: false,
   sequence: 0,
   next: 4,
@@ -42,23 +42,30 @@ const mutations = {
   }
 }
 
+function reset(commit) {
+  commit(PHASING_MUTATIONS.RESET_SEQUENCE);
+  commit(PHASING_MUTATIONS.RESET_NEXT);
+}
+
+function setScale(dispatch, tonic, scale) {
+  dispatch('sequencer/setTonic', tonic, {root: true});
+  dispatch('sequencer/setScale', scale, {root: true});
+}
+
 const actions = {
-  start({commit, dispatch}) {
+  start({commit, dispatch, state}) {
+    reset(commit);
     commit(PHASING_MUTATIONS.SET_ACTIVE, true);
     dispatch('sequencer/play', null, { root: true });
-
-    dispatch('sequencer/setTonic', state.sheet[0].tonic, {root: true});
-    dispatch('sequencer/setScale', state.sheet[0].scale, {root: true});
+    setScale(dispatch, state.sheet[0].tonic, state.sheet[0].scale);
   },
 
-  stop({commit, dispatch}) {
-    commit(PHASING_MUTATIONS.SET_ACTIVE, true);
-    commit(PHASING_MUTATIONS.RESET_SEQUENCE);
-    commit(PHASING_MUTATIONS.RESET_NEXT);
+  stop({commit, dispatch, state}) {
+    commit(PHASING_MUTATIONS.SET_ACTIVE, false);
+    reset(commit);
+    
     dispatch('sequencer/stop', null, { root: true });
-
-    dispatch('sequencer/setTonic', state.sheet[0].tonic, {root: true});
-    dispatch('sequencer/setScale', state.sheet[0].scale, {root: true});
+    setScale(dispatch, state.sheet[0].tonic, state.sheet[0].scale);
   },
 
   changeMeasure({commit, state, rootState, dispatch}) {
@@ -74,8 +81,7 @@ const actions = {
         dispatch('stop');
       }
       else {
-        dispatch('sequencer/setTonic', state.sheet[state.sequence].tonic, {root: true});
-        dispatch('sequencer/setScale', state.sheet[state.sequence].scale, {root: true});
+        setScale(dispatch, state.sheet[state.sequence].tonic, state.sheet[state.sequence].scale);
       }
     }
   },
@@ -96,15 +102,14 @@ const actions = {
 
     // If we edit the active one, update sequencer
     if (payload.index === state.sequence) {
-      dispatch('sequencer/setTonic', payload.tonic, {root: true});
-      dispatch('sequencer/setScale', payload.scale, {root: true});
+      setScale(dispatch, payload.tonic, payload.scale);
     }
   },
 }
 
 export default {
   namespaced: true,
-  state,
+  state: initState,
   mutations,
   actions
 }

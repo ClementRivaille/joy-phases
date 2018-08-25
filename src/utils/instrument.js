@@ -64,14 +64,14 @@ function createPiano(callback) {
 
 function createXylophone(callback) {
   return new Tone.Sampler({
-    A4: 'A4.wav',
-    A5: 'A5.wav',
-    A6: 'A6.wav',
-    F4: 'F4.wav',
-    F5: 'F5.wav',
-    F6: 'F6.wav',
-    D5: 'D5.wav',
-    D6: 'D6.wav',
+    A4: 'A4.ogg',
+    A5: 'A5.ogg',
+    A6: 'A6.ogg',
+    F4: 'F4.ogg',
+    F5: 'F5.ogg',
+    F6: 'F6.ogg',
+    D5: 'D5.ogg',
+    D6: 'D6.ogg',
   },
   {
     release: 1,

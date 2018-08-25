@@ -4,7 +4,7 @@
       <li
         v-for="(sequence, index) in sheet"
         :key="index"
-        :class="{active: index === currentSequence}"
+        :class="{active: index === currentSequence && active}"
         class="sequence">
         <h3>{{ index }}</h3>
         <Scale
@@ -26,7 +26,8 @@ export default {
   computed: {
     ...mapState('phasing', {
       sheet: 'sheet',
-      currentSequence: 'sequence'
+      currentSequence: 'sequence',
+      active: 'active'
     }),
   },
   methods: {

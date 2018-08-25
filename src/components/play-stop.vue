@@ -1,6 +1,7 @@
 <template>
   <button
-    @click="onClick">
+    @click="onClick"
+    :class="{stop: playing}">
     {{ playing ? 'Stop' : 'Play' }}
   </button>
 </template>
@@ -30,5 +31,8 @@ export default {
     padding: 0.8rem;
     border-radius: 0.8rem;
     cursor: pointer;
+  }
+  button.stop {
+    background-color: #f98b87;
   }
 </style>

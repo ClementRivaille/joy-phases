@@ -2,48 +2,18 @@
   <fieldset>
     <legend>Signature</legend>
     <ul>
-      <li>
-        <label>
+      <li
+        v-for="sig in signatures"
+        :key="sig.value">
+        <label
+          :class="{active: signature === sig.value}">
           <input
-            :checked="signature === 16"
-            :value="16"
+            :checked="signature === sig.value"
+            :value="sig.value"
             type="radio"
             name="signature"
-            @input="setSignature(16)">
-          4 / 4
-        </label>
-      </li>
-      <li>
-        <label>
-          <input
-            :checked="signature === 12"
-            :value="12"
-            type="radio"
-            name="signature"
-            @input="setSignature(12)">
-          3 / 4
-        </label>
-      </li>
-      <li>
-        <label>
-          <input
-            :checked="signature === 10"
-            :value="10"
-            type="radio"
-            name="signature"
-            @input="setSignature(10)">
-          5 / 2
-        </label>
-      </li>
-      <li>
-        <label>
-          <input
-            :checked="signature === 14"
-            :value="14"
-            type="radio"
-            name="signature"
-            @input="setSignature(14)">
-          7 / 2
+            @input="setSignature(sig.value)">
+          {{ sig.label }}
         </label>
       </li>
     </ul>
@@ -54,6 +24,16 @@
 import { mapState } from 'vuex';
 
 export default {
+  data() {
+    return {
+      signatures: [
+        {label: '4 / 4', value: 16},
+        {label: '3 / 4', value: 12},
+        {label: '5 / 2', value: 10},
+        {label: '7 / 2', value: 14},
+      ]
+    }
+  },
   computed: {
     ...mapState('sequencer', ['signature'])
   },
@@ -79,5 +59,20 @@ fieldset {
 legend {
   width: 100%;
   text-align: center;
+}
+label {
+  color: black;
+  cursor: pointer;
+  background-color: #fff4;
+  padding: 1.1rem;
+  border-radius: 1.2rem;
+}
+label.active {
+  background-color: #0005;
+  color: white;
+}
+input {
+  position: absolute;
+  top: -99999px;
 }
 </style>

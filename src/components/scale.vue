@@ -68,5 +68,14 @@ export default {
 </script>
 
 <style scoped>
-  
+  select {
+    background: #fffb;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    border: none;
+    font-size: 0.8rem;
+  }
+  .field-label {
+    margin-right: 0.4rem;
+  }
 </style>

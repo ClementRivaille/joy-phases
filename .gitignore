@@ -3,3 +3,8 @@ npm-debug.log
 dist
 *.sublime-*
 dev
+src
+.eslintrc
+package.json
+webpack.config.js
+README.md

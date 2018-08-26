@@ -1,19 +1,17 @@
 <template>
   <button
-    @click="onClick"
-    :class="{stop: playing}">
+    :class="{stop: playing}"
+    @click="onClick">
     {{ playing ? 'Stop' : 'Play' }}
   </button>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   computed: {
-    ...mapState('sequencer', [
-      'playing'
-    ])
+    playing() {
+      return this.$store.state.sequencer.playing && this.$store.state.phasing.active
+    }
   },
   methods: {
     onClick() {

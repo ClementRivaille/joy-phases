@@ -128,7 +128,7 @@ const actions = {
     let starting = true;
     startLoop(() => {
       dispatch('moveBeat');
-      if (state.beat === 0 && !starting) {
+      if (state.beat === 0 && !starting && rootState.phasing.active) {
         dispatch('phasing/changeMeasure', null, { root: true });
       }
       starting = false;

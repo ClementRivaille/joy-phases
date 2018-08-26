@@ -4,9 +4,17 @@
       <li
         v-for="(sequence, index) in sheet"
         :key="index"
-        :class="{active: index === currentSequence && active}"
+        :class="{active: index === currentSequence}"
         class="sequence">
-        <h3>{{ index }}</h3>
+        <header>
+          <h3>{{ index }}</h3>
+          <div class="actions">
+            <button
+              @click="jumpToSequence(index)">
+              <span v-html="iconNext"/>
+            </button>
+          </div>
+        </header>
         <Scale
           :tonic="sequence.tonic"
           :mode="sequence.scale"
@@ -18,11 +26,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import Scale from './scale';
+
+import iconNext from '../../assets/icons/next.svg';
 
 export default {
   components: { Scale },
+  data() {
+    return {
+      iconNext,
+    };
+  },
   computed: {
     ...mapState('phasing', {
       sheet: 'sheet',
@@ -44,16 +59,31 @@ export default {
         tonic: this.$store.state.phasing.sheet[index].tonic,
         scale: scale
       });
-    }
+    },
+    ...mapActions('phasing', ['jumpToSequence']),
   }
 }
 </script>
 
 <style scoped="true">
+header {
+  display: flex;
+  justify-content: center;
+}
 h3 {
+  flex-grow: 3;
   margin: 0.2rem 0;
   font-size: 1rem;
   text-align: center;
+}
+.actions button {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 1rem;
+  fill: white;
+  opacity: 0.8;
 }
 ul {
   list-style: none;

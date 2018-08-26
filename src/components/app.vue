@@ -48,7 +48,7 @@ import Bpm from './bpm';
 import Sheet from './sheet';
 
 import { loadInstruments } from '../utils/instrument';
-import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'App',
@@ -69,7 +69,22 @@ export default {
     });
   },
   methods: {
-    ...mapActions('sequencer', ['setTonic', 'setScale']),
+    setTonic(tonic) {
+      this.$store.dispatch('sequencer/setTonic', tonic);
+      this.$store.dispatch('phasing/editSequence', {
+        index: this.$store.state.phasing.sequence,
+        tonic: this.$store.state.sequencer.tonic,
+        scale: this.$store.state.sequencer.scale,
+      });
+    },
+    setScale(scale) {
+      this.$store.dispatch('sequencer/setScale', scale);
+      this.$store.dispatch('phasing/editSequence', {
+        index: this.$store.state.phasing.sequence,
+        tonic: this.$store.state.sequencer.tonic,
+        scale: this.$store.state.sequencer.scale,
+      });
+    }
   }
 };
 </script>

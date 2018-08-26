@@ -62,13 +62,17 @@ module.exports = {
         include:PATHS.app
       },
       {
-        test: /\.(ico|jpg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,        
+        test: /\.(ico|jpg|png|gif|eot|otf|webp|ttf|woff|woff2)(\?.*)?$/,        
         use: [{
           loader:'url-loader',
           options: {
             name: '[path][name].[ext]'
           }
         }]
+      },
+      {
+        test: /\.svg$/,
+        use: ['svg-inline-loader']
       }
     ],
   },

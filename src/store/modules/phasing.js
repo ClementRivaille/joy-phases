@@ -13,6 +13,7 @@ const PHASING_MUTATIONS = {
   SET_ACTIVE: 'SET_ACTIVE',
   SET_SHEET: 'SET_SHEET',
   EDIT_SEQUENCE: 'EDIT_SEQUENCE',
+  JUMP_SEQUENCE: 'JUMP_SEQUENCE',
 };
 
 const mutations = {
@@ -35,10 +36,14 @@ const mutations = {
     state.sheet = sheet;
   },
   [PHASING_MUTATIONS.EDIT_SEQUENCE] (state, payload) {
+    state.sheet = [...state.sheet];
     state.sheet[payload.index] = {
       tonic: payload.tonic,
       scale: payload.scale
     }
+  },
+  [PHASING_MUTATIONS.JUMP_SEQUENCE] (state, sequence) {
+    state.sequence = sequence;
   }
 }
 
@@ -53,10 +58,19 @@ function setScale(dispatch, tonic, scale) {
 }
 
 const actions = {
-  start({commit, dispatch, state}) {
+  start({commit, dispatch, state, rootState}) {
+    // Start phasing
     reset(commit);
     commit(PHASING_MUTATIONS.SET_ACTIVE, true);
+
+    // If sequencer is playing, stop it
+    if (rootState.sequencer.playing) {
+      dispatch('sequencer/stop', null, { root: true });
+    }
+    // Play
     dispatch('sequencer/play', null, { root: true });
+    
+    // Init scale to section 0
     setScale(dispatch, state.sheet[0].tonic, state.sheet[0].scale);
   },
 
@@ -105,6 +119,12 @@ const actions = {
       setScale(dispatch, payload.tonic, payload.scale);
     }
   },
+
+  jumpToSequence({commit, dispatch, state}, sequence) {
+    commit(PHASING_MUTATIONS.JUMP_SEQUENCE, sequence);
+    commit(PHASING_MUTATIONS.RESET_NEXT);
+    setScale(dispatch, state.sheet[sequence].tonic, state.sheet[sequence].scale);
+  }
 }
 
 export default {

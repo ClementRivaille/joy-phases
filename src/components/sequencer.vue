@@ -18,15 +18,38 @@
         </td>
       </tr>
     </table>
+    <div
+      v-if="!phasingActive"
+      class="controls">
+      <button
+        v-if="!playing"
+        class="play"
+        @click="play"
+        v-html="iconPlay"/>
+      <button
+        v-if="playing"
+        class="stop"
+        @click="stop"
+        v-html="iconStop"/>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import Note from './note';
+
+import iconPlay from '../../assets/icons/music-player-play.svg';
+import iconStop from '../../assets/icons/stop.svg';
 
 export default {
   components: { Note },
+  data() {
+    return {
+      iconPlay,
+      iconStop
+    }
+  },
   computed: {
     ...mapGetters('sequencer', [
       'scaleNotes',
@@ -35,7 +58,8 @@ export default {
     ...mapState('sequencer', [
       'signature',
       'notes',
-      'beat'
+      'beat',
+      'playing'
     ]),
     ...mapState('phasing', [
       'sequence'
@@ -50,7 +74,8 @@ export default {
         index: beat,
         value: enable ? note : -1
       });
-    }
+    },
+    ...mapActions('sequencer', ['play', 'stop']),
   },
 };
 </script>
@@ -77,5 +102,21 @@ td {
 }
 td.active {
   background: #fff4;
+}
+
+.controls {
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: center;
+
+}
+.controls button {
+  padding: 0;
+  background: none;
+  border: none;
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  fill: #fff6;
 }
 </style>

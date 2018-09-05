@@ -47,4 +47,12 @@ button.phased {
 button.enabled.phased {
   background: #36309b;
 }
+
+@media (max-width: 920px) {
+  button {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.1rem;
+  }
+}
 </style>

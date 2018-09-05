@@ -51,14 +51,17 @@ ul {
   flex-direction: row;
   justify-content: space-around;
   list-style: none;
-  margin: 0;
+  margin: 0.4rem 0;
+  padding: 0;
 }
 fieldset {
   border: none;
+  margin-bottom: 1rem;
 }
 legend {
   width: 100%;
   text-align: center;
+  margin-bottom: 0.7rem;
 }
 label {
   color: black;
@@ -74,5 +77,13 @@ label.active {
 input {
   position: absolute;
   top: -99999px;
+}
+
+@media (max-width: 400px) {
+  label {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+    border-radius: 0.8rem;
+  }
 }
 </style>

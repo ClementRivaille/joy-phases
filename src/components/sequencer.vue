@@ -19,15 +19,17 @@
       </tr>
     </table>
     <div
-      v-if="!phasingActive"
+      :class="{disabled: phasingActive}"
       class="controls">
       <button
         v-if="!playing"
+        :disabled="phasingActive"
         class="play"
         @click="play"
         v-html="iconPlay"/>
       <button
         v-if="playing"
+        :disabled="phasingActive"
         class="stop"
         @click="stop"
         v-html="iconStop"/>
@@ -118,5 +120,30 @@ td.active {
   width: 2rem;
   cursor: pointer;
   fill: #fff6;
+}
+
+.controls.disabled {
+  opacity: 0;
+}
+
+.controls.disabled button {
+  cursor: unset;
+}
+
+@media (max-width: 920px) {
+  .sequencer {
+    padding: 1rem;
+    border-radius: 0.4rem;
+  }
+
+  th {
+    min-width: 1.2rem;
+    font-size: 0.8rem;
+  }
+
+  .controls button {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
 }
 </style>

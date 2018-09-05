@@ -29,11 +29,8 @@
       <section id="sheet">
         <h2>Sections</h2>
         <Sheet/>
-      </section>
-
-      <div id="controls">
         <PlayStop/>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -98,8 +95,10 @@ h1 {
   margin-top: 0.1rem;
 }
 
-#main {
-  margin: 0 5%;
+@media (min-width: 650px) {
+  #main {
+    margin: 0 5%;
+  }
 }
 
 section {

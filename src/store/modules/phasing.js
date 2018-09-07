@@ -5,7 +5,7 @@ const initState = {
   sheet: [],
 }
 
-const PHASING_MUTATIONS = {
+export const PHASING_MUTATIONS = {
   DECREMENT_NEXT: 'DECREMENT_NEXT',
   RESET_NEXT: 'RESET_NEXT',
   MOVE_SEQUENCE: 'MOVE_SEQUENCE',

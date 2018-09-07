@@ -46,6 +46,7 @@ export const SEQUENCER_MUTATIONS = {
   INIT_BEAT: 'INIT_BEAT',
   SET_PLAYING: 'SET_PLAYING',
   SET_INSTRUMENT: 'SET_INSTRUMENT',
+  SET_NOTES: 'SET_NOTES',
 };
 
 const mutations = {
@@ -79,6 +80,9 @@ const mutations = {
   },
   [SEQUENCER_MUTATIONS.SET_INSTRUMENT] (state, instrument) {
     state.instrument = instrument;
+  },
+  [SEQUENCER_MUTATIONS.SET_NOTES] (state, notes) {
+    state.notes = notes;
   }
 };
 

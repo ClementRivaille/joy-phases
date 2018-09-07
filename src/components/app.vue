@@ -31,6 +31,11 @@
         <Sheet/>
         <PlayStop/>
       </section>
+
+      <section>
+        <h2>Import / Export</h2>
+        <ImportExport/>
+      </section>
     </div>
   </div>
 </template>
@@ -43,13 +48,14 @@ import Signature from './signature';
 import Instrument from './instrument';
 import Bpm from './bpm';
 import Sheet from './sheet';
+import ImportExport from './import-export';
 
 import { loadInstruments } from '../utils/instrument';
 import { mapState } from 'vuex';
 
 export default {
   name: 'App',
-  components: { Scale, Sequencer, PlayStop, Signature, Instrument, Bpm, Sheet },
+  components: { Scale, Sequencer, PlayStop, Signature, Instrument, Bpm, Sheet, ImportExport },
   data() {
     return {
       greeting: 'Hello',

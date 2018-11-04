@@ -30,3 +30,7 @@ body {
   position: absolute;
   top: -9999px;
 }
+
+a {
+  color: #3b0905;
+}

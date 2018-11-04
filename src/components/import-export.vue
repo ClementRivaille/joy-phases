@@ -16,7 +16,9 @@
       The code you provided couldn't be read!
     </p>
 
-    <div class="line" id="export">
+    <div
+      id="export"
+      class="line">
       <button
         @click="exportSong()">
         Export
@@ -26,26 +28,49 @@
         <input
           v-if="hashOut" 
           id="hash-out"
-          v-model="hashOut">
+          v-model="hashOut"
+          readonly="true">
       </label>
     </div>
 
     <p v-if="hashOut">
-      Copy-paste the hash code above into the Import field to load your song.
+      Copy-paste the hash code above into the Import field to load your song, or use
+      <a
+        :href="link"
+        title="Your song">
+        this link
+      </a>.
     </p>
   </div>
 </template>
 
 <script>
 import { encrypt } from '../utils/encryption';
+import urljoin from 'url-join';
+
+function getUrlParameter(name) {
+  const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  const results = regex.exec(location.search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
 
 export default {
   data() {
     return {
       hashIn: '',
       hashOut: '',
+      link: '',
       error: false
     };
+  },
+  mounted() {
+    if (getUrlParameter('import')) {
+      try {
+        this.$store.dispatch('importSong', getUrlParameter('import'));
+      } catch(e) {
+        this.error = true;
+      }
+    }
   },
   methods: {
     importSong() {
@@ -65,6 +90,7 @@ export default {
         notes: this.$store.state.sequencer.notes,
         sheet: this.$store.state.phasing.sheet
       });
+      this.link = urljoin(window.location.origin, window.location.pathname, `?import=${encodeURIComponent(this.hashOut)}`);
     }
   },
 };
@@ -92,10 +118,6 @@ export default {
 
 #import {
   margin-bottom: 1.5rem;
-}
-
-#export input {
-  opacity: 0.7;
 }
 
 button {

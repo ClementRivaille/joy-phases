@@ -10,6 +10,11 @@
           <h3>{{ index }}</h3>
           <div class="actions">
             <button
+              v-if="index === currentSequence"
+              @click="initSheet(signature)">
+              <span v-html="iconSpread"/>              
+            </button>
+            <button
               @click="jumpToSequence(index)">
               <span v-html="iconNext"/>
             </button>
@@ -30,12 +35,13 @@ import { mapState, mapActions } from 'vuex';
 import Scale from './scale';
 
 import iconNext from '../../assets/icons/next.svg';
+import iconSpread from '../../assets/icons/spread.svg';
 
 export default {
   components: { Scale },
   data() {
     return {
-      iconNext,
+      iconNext, iconSpread,
     };
   },
   computed: {
@@ -44,6 +50,7 @@ export default {
       currentSequence: 'sequence',
       active: 'active'
     }),
+    ...mapState('sequencer', ['signature']),
   },
   methods: {
     editTonic(index, tonic) {
@@ -60,7 +67,7 @@ export default {
         scale: scale
       });
     },
-    ...mapActions('phasing', ['jumpToSequence']),
+    ...mapActions('phasing', ['jumpToSequence', 'initSheet']),
   }
 }
 </script>

@@ -1,4 +1,4 @@
-import { scaleNotes } from '../utils/scale'
+import { scaleNotes } from '../../utils/scale'
 import { startLoop, stopLoop, playNote, setBpm } from '../../utils/instrument';
 
 function initializeNotes(size) {

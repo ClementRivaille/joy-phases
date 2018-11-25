@@ -41,11 +41,19 @@
         this link
       </a>.
     </p>
+
+    <div id="midi">
+      <button
+        @click="exportMidi()">
+        Export as MIDI        
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import { encrypt } from '../utils/encryption';
+import writeMidi from '../utils/midi'
 import urljoin from 'url-join';
 
 function getUrlParameter(name) {
@@ -91,6 +99,9 @@ export default {
         sheet: this.$store.state.phasing.sheet
       });
       this.link = urljoin(window.location.origin, window.location.pathname, `?import=${encodeURIComponent(this.hashOut)}`);
+    },
+    exportMidi() {
+      writeMidi(this.$store.state.sequencer.bpm, this.$store.state.sequencer.notes, this.$store.state.phasing.sheet)
     }
   },
 };
@@ -133,7 +144,7 @@ button {
   background-color: #fffC;
 }
 
-#export button {
+#export button, #midi button {
   background-color: #000C;
   color: white;
 }

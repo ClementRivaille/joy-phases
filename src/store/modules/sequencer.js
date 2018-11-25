@@ -1,4 +1,4 @@
-import teoria from 'teoria';
+import { scaleNotes } from '../utils/scale'
 import { startLoop, stopLoop, playNote, setBpm } from '../../utils/instrument';
 
 function initializeNotes(size) {
@@ -24,10 +24,7 @@ const state = {
 // getters
 const getters = {
   scaleNotes(state) {
-    let scale = teoria.scale(state.tonic + '4', state.scale).notes();
-    scale = scale.concat(scale.map(note => note.interval('P8')));
-    scale.push(scale[7].interval('P8'));
-    return scale.map(note => note.scientific());
+    return scaleNotes(state.tonic, state.scale)
   },
   isNoteEnabled(state) {
     return (beat, note) => state.notes[beat] === note;

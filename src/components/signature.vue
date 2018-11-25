@@ -66,12 +66,12 @@ legend {
 label {
   color: black;
   cursor: pointer;
-  background-color: #fff4;
+  background-color: rgba(255, 255, 255, 0.267);
   padding: 1.1rem;
   border-radius: 1.2rem;
 }
 label.active {
-  background-color: #0005;
+  background-color: rgba(0, 0, 0, 0.333);
   color: white;
 }
 input {

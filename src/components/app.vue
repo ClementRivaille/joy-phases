@@ -116,7 +116,7 @@ section {
   margin-bottom: 2rem;
 
   border-radius: 1rem;
-  background-color: #8a791a66;
+  background-color: rgba(138, 121, 26, 0.4);
 
   padding: 1rem;
 }

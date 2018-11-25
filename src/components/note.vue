@@ -39,13 +39,13 @@ button {
   cursor: pointer;
 }
 button.enabled {
-  background: #6f100c;
+  background: rgb(111, 16, 12);;
 }
 button.phased {
-  background: #20c1d4;
+  background: rgb(32, 193, 212);
 }
 button.enabled.phased {
-  background: #36309b;
+  background: rgb(54, 48, 155);
 }
 
 @media (max-width: 920px) {

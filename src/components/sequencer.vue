@@ -84,7 +84,7 @@ export default {
 
 <style scoped>
 .sequencer {
-  background-color: #fff3;
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 0.7rem;
   padding: 2rem;
 }
@@ -103,7 +103,7 @@ td {
   padding: 0.1rem;
 }
 td.active {
-  background: #fff4;
+  background: rgba(255, 255, 255, 0.267);
 }
 
 .controls {
@@ -119,7 +119,7 @@ td.active {
   height: 2rem;
   width: 2rem;
   cursor: pointer;
-  fill: #fff6;
+  fill: rgba(255, 255, 255, 0.4);
 }
 
 .controls.disabled {

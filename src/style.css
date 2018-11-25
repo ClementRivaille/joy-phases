@@ -1,5 +1,5 @@
 body {
-  background-color: #9c9e55;
+  background-color: rgb(156, 158, 85);
   font-family: sans-serif;
   color: white;
 }
@@ -32,5 +32,5 @@ body {
 }
 
 a {
-  color: #3b0905;
+  color: rgb(59, 9, 5);
 }

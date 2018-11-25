@@ -141,11 +141,11 @@ button {
 }
 
 #import button {
-  background-color: #fffC;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 #export button, #midi button {
-  background-color: #000C;
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
 }
 </style>

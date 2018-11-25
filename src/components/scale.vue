@@ -69,7 +69,7 @@ export default {
 
 <style scoped>
   select {
-    background: #fffb;
+    background: rgba(255, 255, 255, 0.733);
     padding: 0.2rem 0.4rem;
     border-radius: 0.3rem;
     border: none;

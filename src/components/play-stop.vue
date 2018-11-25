@@ -37,14 +37,14 @@ export default {
   button {
     font-size: 1.5rem;
     border: none;
-    background: #fff7;
+    background: rgba(255, 255, 255, 0.467);
     padding: 0.8rem;
     border-radius: 0.8rem;
     cursor: pointer;
     margin-top: 0.5rem;
   }
   button.stop {
-    background-color: #0007;
+    background: rgba(0, 0, 0, 0.467);
     color: white;
     fill: white;
   }

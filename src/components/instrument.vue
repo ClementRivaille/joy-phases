@@ -40,7 +40,7 @@ ul {
   margin: 0.2rem;
 }
 button {
-  background: #c9c7c7;
+  background: rgb(201, 199, 199);;
   color: black;
   padding: 0.4rem;
   margin: 0.2rem;
@@ -49,7 +49,7 @@ button {
   cursor: pointer;
 }
 button.checked {
-  background-color: #3f3f3f;
+  background-color: rgb(63, 63, 63);;
   color: white;
 }
 </style>

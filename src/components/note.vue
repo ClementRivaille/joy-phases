@@ -1,7 +1,10 @@
 <template>
   <button
     :class="{ enabled: enabled, phased: phased }"
-    @click="$emit('click-note', beat, note, !enabled)"/>
+    :aria-pressed="enabled"
+    @click="$emit('click-note', beat, note, !enabled)">
+    <span class="sr-only">Note</span>
+  </button>
 </template>
 
 <script>

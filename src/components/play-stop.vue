@@ -4,6 +4,7 @@
     @click="onClick">
     <span
       class="icon"
+      aria-hidden="true"
       v-html="playing ? iconStop : iconPlay"/>
     {{ playing ? 'Stop' : 'Start' }}
   </button>

@@ -4,7 +4,7 @@
       <tr
         v-for="rIndex in scaleNotes.length"
         :key="rIndex">
-        <th>{{ scaleNotes[scaleNotes.length - rIndex] }}</th>
+        <th scope="row">{{ scaleNotes[scaleNotes.length - rIndex] }}</th>
         <td
           v-for="col in signature"
           :key="col"

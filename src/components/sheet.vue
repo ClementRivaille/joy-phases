@@ -7,16 +7,31 @@
         :class="{active: index === currentSequence}"
         class="sequence">
         <header>
-          <h3>{{ index }}</h3>
+          <h3>
+            {{ index }}
+            <span
+              v-if="index === currentSequence"
+              class="sr-only">
+              (active)
+            </span>
+          </h3>
           <div class="actions">
             <button
               v-if="index === currentSequence"
+              :title="'Spread ' + sequence.tonic + ' ' + sequence.scale"
               @click="initSheet(signature)">
-              <span v-html="iconSpread"/>              
+              <span
+                aria-hidden="true"
+                v-html="iconSpread"/>
+              <span class="sr-only">Spread {{ sequence.tonic }} {{ sequence.scale }}</span>
             </button>
             <button
+              :title="'Jump to sequence ' + index"
               @click="jumpToSequence(index)">
-              <span v-html="iconNext"/>
+              <span 
+                aria-hidden="true"
+                v-html="iconNext"/>
+              <span class="sr-only">Jump to sequence {{ index }}</span>
             </button>
           </div>
         </header>

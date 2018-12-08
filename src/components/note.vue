@@ -1,8 +1,10 @@
 <template>
   <button
     :class="{ enabled: enabled, phased: phased }"
+    :id="btnId"
     :aria-pressed="enabled"
-    @click="$emit('click-note', beat, note, !enabled)">
+    @click="$emit('click-note', beat, note, !enabled)"
+    @keydown="moveFocus">
     <span class="sr-only">Note</span>
   </button>
 </template>
@@ -26,6 +28,21 @@ export default {
       type: Number,
       default: 0
     },
+  },
+  computed: {
+    btnId() {
+      return `note-${this.beat}-${this.note}`
+    }
+  },
+  methods: {
+    moveFocus(e) {
+      if (['ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Tab'].indexOf(e.key) > -1)
+        this.$emit('move',
+          e.key === 'Tab' ? 'out' : e.key.replace(/Arrow/g, '').toLowerCase(),
+          this.beat,
+          this.note
+        )
+    }
   }
 }
 </script>

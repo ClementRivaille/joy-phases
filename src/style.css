@@ -34,3 +34,11 @@ body {
 a {
   color: rgb(59, 9, 5);
 }
+
+[data-whatintent="keyboard"] select:focus {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+[data-whatintent="keyboard"] button:focus, [data-whatintent="keyboard"] input[type="range"]:focus {
+  box-shadow: rgba(255, 255, 255, 0.6) 0 0 0.2em 0.2em;
+}

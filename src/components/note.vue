@@ -58,6 +58,9 @@ button {
   display: block;
   cursor: pointer;
 }
+[data-whatintent="keyboard"] button:focus {
+  box-shadow: rgba(0, 0, 0, 0.7) 0 0 0.2em 0.2em;
+}
 button.enabled {
   background: rgb(111, 16, 12);;
 }

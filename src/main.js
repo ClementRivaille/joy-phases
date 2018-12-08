@@ -3,6 +3,7 @@ import App from './components/app';
 import store from './store'
 
 import './style.css';
+import 'what-input'
 
 Vue.config.productionTip = false;
 

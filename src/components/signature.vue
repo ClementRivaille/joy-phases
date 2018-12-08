@@ -6,13 +6,15 @@
         v-for="sig in signatures"
         :key="sig.value">
         <label
-          :class="{active: signature === sig.value}">
+          :class="{active: signature === sig.value, focused: focused === sig.value}">
           <input
             :checked="signature === sig.value"
             :value="sig.value"
             type="radio"
             name="signature"
-            @input="setSignature(sig.value)">
+            @input="setSignature(sig.value)"
+            @focus="focused = sig.value"
+            @blur="focused = false">
           {{ sig.label }}
         </label>
       </li>
@@ -31,7 +33,8 @@ export default {
         {label: '3 / 4', value: 12},
         {label: '5 / 2', value: 10},
         {label: '7 / 2', value: 14},
-      ]
+      ],
+      focused: 0
     }
   },
   computed: {
@@ -73,6 +76,9 @@ label {
 label.active {
   background-color: rgba(0, 0, 0, 0.333);
   color: white;
+}
+[data-whatintent="keyboard"] label.focused {
+  box-shadow: rgba(255, 255, 255, 0.3) 0 0 0.2em 0.2em;
 }
 input {
   position: absolute;

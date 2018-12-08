@@ -25,6 +25,7 @@ export function setBpm(value, playing) {
 }
 
 export function startLoop(callback) {
+  Tone.context.resume()
   // Call callback every beat
   loop = new Tone.Sequence(callback, [0], "16n");
   Tone.Transport.start();

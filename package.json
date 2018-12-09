@@ -1,6 +1,6 @@
 {
   "name": "joy-phases",
-  "version": "0.0.1",
+  "version": "0.4.0",
   "description": "A pĥasing sequencer",
   "main": "index.js",
   "scripts": {

@@ -1,10 +1,13 @@
 <template>
   <div class="scale">
     <label>
-      <span class="field-label">Tonic</span>
+      <span class="field-label">
+        <span v-if="name">{{ name }}</span>
+        Tonic
+      </span>
       <select
         :value="tonic"
-        name="tonic"
+        :name="fullName('tonic')"
         @input="setTonic">
         <option
           v-for="(note, index) in notes"
@@ -15,10 +18,13 @@
     </label>
 
     <label>
-      <span class="field-label">Mode</span>
+      <span class="field-label">
+        <span v-if="name">{{ name }}</span>
+        Mode
+      </span>
       <select
         :value="mode"
-        name="mode"
+        :name="fullName('mode')"
         @input="setScale">
         <option
           v-for="(mode, index) in modes"
@@ -41,6 +47,10 @@ export default {
       type: String,
       default: 'major'
     },
+    name: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {
@@ -55,6 +65,11 @@ export default {
         'locrian'
       ]
     };
+  },
+  computed: {
+    fullName() {
+      return (type) => (this.name ? `${this.name.replace(/ /g, '')}-` : '') + type
+    }
   },
   methods: {
     setTonic(e) {

@@ -38,6 +38,7 @@
         <Scale
           :tonic="sequence.tonic"
           :mode="sequence.scale"
+          :name="'Section ' + index"
           @set-tonic="editTonic(index, $event)"
           @set-scale="editScale(index, $event)"/>
       </li>

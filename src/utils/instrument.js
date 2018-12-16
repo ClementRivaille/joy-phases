@@ -82,6 +82,46 @@ function createXylophone(callback) {
   }).toMaster();
 }
 
+function createSquareWave(callback) {
+  return new Tone.Sampler({
+    A4: 'A4.ogg',
+    A5: 'A5.ogg',
+    A6: 'A6.ogg',
+    C4: 'C4.ogg',
+    C5: 'C5.ogg',
+    C6: 'C6.ogg',
+    F4: 'F4.ogg',
+    F5: 'F5.ogg',
+    F6: 'F6.ogg',
+  },
+  {
+    release: 1,
+    baseUrl: './assets/square/',
+    onload: callback,
+    volume: -5
+  }).toMaster();
+}
+
+function createExponentialWave(callback) {
+  return new Tone.Sampler({
+    A4: 'A4.ogg',
+    A5: 'A5.ogg',
+    A6: 'A6.ogg',
+    C4: 'C4.ogg',
+    C5: 'C5.ogg',
+    C6: 'C6.ogg',
+    F4: 'F4.ogg',
+    F5: 'F5.ogg',
+    F6: 'F6.ogg',
+  },
+  {
+    release: 1,
+    baseUrl: './assets/exponential/',
+    onload: callback,
+    volume: -10
+  }).toMaster();
+}
+
 const instruments = {};
 
 // Load an instrument
@@ -105,6 +145,8 @@ export function loadInstruments() {
 
   promises.push(makeInstrument('piano', createPiano));
   promises.push(makeInstrument('xylophone', createXylophone));
+  promises.push(makeInstrument('square', createSquareWave));
+  promises.push(makeInstrument('exponential', createExponentialWave));
 
   return Promise.all(promises);
 }

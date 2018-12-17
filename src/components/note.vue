@@ -36,12 +36,14 @@ export default {
   },
   methods: {
     moveFocus(e) {
-      if (['ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Tab'].indexOf(e.key) > -1)
+      if (['ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Tab'].indexOf(e.key) > -1) {
+        if (e.key !== 'Tab') e.preventDefault()
         this.$emit('move',
           e.key === 'Tab' ? 'out' : e.key.replace(/Arrow/g, '').toLowerCase(),
           this.beat,
           this.note
         )
+      }
     }
   }
 }

@@ -21,6 +21,7 @@ export default new Vuex.Store({
       commit(`sequencer/${SEQUENCER_MUTATIONS.SET_NOTES}`, data.notes);
       // Import sheet
       commit(`phasing/${PHASING_MUTATIONS.SET_SHEET}`, data.sheet);
+      commit(`phasing/${PHASING_MUTATIONS.SET_SEQUENCE_LENGTH}`, data.sequenceLength || 4);
 
       // Initialize first measure
       dispatch('phasing/jumpToSequence', 0);

@@ -5,7 +5,7 @@ import * as MidiWriter from 'midi-writer-js';
 const DURATION = '16';
 
 /** Generate and save MIDI */
-export default function writeMidi(bpm, notes, sheet) {
+export default function writeMidi(bpm, notes, sheet, sequenceLength) {
   const tracks = {
     main: {
       track: new MidiWriter.Track(),
@@ -45,7 +45,7 @@ export default function writeMidi(bpm, notes, sheet) {
     const scale = scaleNotes(section.tonic, section.scale)
 
     // Repeat section four times
-    for (let i = 0 ; i < 4 ; i++) {
+    for (let i = 0 ; i < sequenceLength ; i++) {
       // Browse notes
       notes.forEach((note, noteIndex) => {
         // Main: plays the melody regularly

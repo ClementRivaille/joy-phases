@@ -1,6 +1,7 @@
 const initState = {
   active: false,
   sequence: 0,
+  sequenceLength: 4, 
   next: 4,
   sheet: [],
 }
@@ -14,6 +15,7 @@ export const PHASING_MUTATIONS = {
   SET_SHEET: 'SET_SHEET',
   EDIT_SEQUENCE: 'EDIT_SEQUENCE',
   JUMP_SEQUENCE: 'JUMP_SEQUENCE',
+  SET_SEQUENCE_LENGTH: 'SET_SEQUENCE_LENGTH',
 };
 
 const mutations = {
@@ -21,7 +23,7 @@ const mutations = {
     state.next -= 1;
   },
   [PHASING_MUTATIONS.RESET_NEXT] (state) {
-    state.next = 4;
+    state.next = state.sequenceLength;
   },
   [PHASING_MUTATIONS.MOVE_SEQUENCE] (state) {
     state.sequence += 1;
@@ -44,6 +46,10 @@ const mutations = {
   },
   [PHASING_MUTATIONS.JUMP_SEQUENCE] (state, sequence) {
     state.sequence = sequence;
+  },
+  [PHASING_MUTATIONS.SET_SEQUENCE_LENGTH] (state, length) {
+    state.sequenceLength = length;
+    state.next = state.sequenceLength;
   }
 }
 
@@ -124,6 +130,10 @@ const actions = {
     commit(PHASING_MUTATIONS.JUMP_SEQUENCE, sequence);
     commit(PHASING_MUTATIONS.RESET_NEXT);
     setScale(dispatch, state.sheet[sequence].tonic, state.sheet[sequence].scale);
+  },
+
+  setSequenceLength({ commit }, length) {
+    commit(PHASING_MUTATIONS.SET_SEQUENCE_LENGTH, length)
   }
 }
 

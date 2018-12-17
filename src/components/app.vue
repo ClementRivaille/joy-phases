@@ -29,6 +29,7 @@
       <section id="sheet">
         <h2>Sections</h2>
         <Sheet/>
+        <SectionLength/>
         <PlayStop/>
       </section>
 
@@ -49,13 +50,14 @@ import Instrument from './instrument';
 import Bpm from './bpm';
 import Sheet from './sheet';
 import ImportExport from './import-export';
+import SectionLength from './section-length';
 
 import { loadInstruments } from '../utils/instrument';
 import { mapState } from 'vuex';
 
 export default {
   name: 'App',
-  components: { Scale, Sequencer, PlayStop, Signature, Instrument, Bpm, Sheet, ImportExport },
+  components: { Scale, Sequencer, PlayStop, Signature, Instrument, Bpm, Sheet, ImportExport, SectionLength },
   data() {
     return {
       greeting: 'Hello',

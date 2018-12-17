@@ -96,12 +96,13 @@ export default {
         bpm: this.$store.state.sequencer.bpm,
         instrument: this.$store.state.sequencer.instrument,
         notes: this.$store.state.sequencer.notes,
-        sheet: this.$store.state.phasing.sheet
+        sheet: this.$store.state.phasing.sheet,
+        sequenceLength: this.$store.state.phasing.sequenceLength,
       });
       this.link = urljoin(window.location.origin, window.location.pathname, `?import=${encodeURIComponent(this.hashOut)}`);
     },
     exportMidi() {
-      writeMidi(this.$store.state.sequencer.bpm, this.$store.state.sequencer.notes, this.$store.state.phasing.sheet)
+      writeMidi(this.$store.state.sequencer.bpm, this.$store.state.sequencer.notes, this.$store.state.phasing.sheet, this.$store.state.phasing.sequenceLength)
     }
   },
 };

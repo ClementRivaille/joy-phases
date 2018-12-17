@@ -1,6 +1,12 @@
 <template>
   <fieldset>
-    <legend>Signature</legend>
+    <legend>
+      Signature
+      <p
+        class="warning">
+        <span v-if="hasNotes">Warning: changing this will clear the melody</span>
+      </p>
+    </legend>
     <ul>
       <li
         v-for="sig in signatures"
@@ -38,7 +44,10 @@ export default {
     }
   },
   computed: {
-    ...mapState('sequencer', ['signature'])
+    ...mapState('sequencer', ['signature']),
+    hasNotes() {
+      return this.$store.state.sequencer.notes.find(note => note !== -1)
+    }
   },
   methods: {
     setSignature(value) {
@@ -83,6 +92,14 @@ label.active {
 input {
   position: absolute;
   top: -99999px;
+}
+
+.warning {
+  font-style: italic;
+  font-size: 0.7em;
+  text-align: center;
+  margin: 0.3em 0 0 0;
+  height: 0.7em;
 }
 
 @media (max-width: 400px) {

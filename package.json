@@ -1,7 +1,7 @@
 {
   "name": "joy-phases",
-  "version": "0.4.0",
-  "description": "A pĥasing sequencer",
+  "version": "1.0.0",
+  "description": "A phasing sequencer",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development",
